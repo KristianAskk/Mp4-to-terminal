@@ -7,8 +7,8 @@ A program that turns a mp4 video into a video displayed in the terminal.
 - [ ] 6 - 7 images currently being processed per second. Improve. 
 - [ ] Make the project runnable as a whole instead of running it with __main__.py ( in other words, fix importing )
 - [ ] The function __scale__ is currently returning None if the terminal is too small.
-- [ x ] Remove unused methods in the VideoFile class
+- [x] Remove unused methods in the VideoFile class
 - [ ] Add threading?
-- [ x ] Center the video being displayed
-- [ x ] Add whitespaces to ensure that only one frame is being displayed at a time.
-- [  ] Add comments 
+- [x] Center the video being displayed
+- [x] Add whitespaces to ensure that only one frame is being displayed at a time.
+- [ ] Add comments 
