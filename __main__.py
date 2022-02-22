@@ -10,10 +10,11 @@ from tqdm import tqdm
 def main():
     video = VideoFile(f"{os.path.dirname(__file__)}/{sys.argv[1]}")
     ascii_frames = []
-    width, height = scale(os.get_terminal_size(), *video.get_resolution())
+    terminal = os.get_terminal_size()
+    height_and_width = scale(os.get_terminal_size(), *video.get_resolution())
  
-    for i in (t := tqdm(range(0, 100, 1))):
-        frame = create_frame(video.get_frame(i), width, height)
+    for i in (t := tqdm(range(0, video.frame_count(), 1))):
+        frame = create_frame(video.get_frame(i), height_and_width, terminal)
         t.set_description("Loading frames...")
         ascii_frames.append(frame)
 

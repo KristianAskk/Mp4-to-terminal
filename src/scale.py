@@ -2,7 +2,7 @@ import os
 from typing import List, Any
 
 
-def scale(terminal: os.terminal_size, lines: int, columns: int) -> List[int]:
+def scale(terminal: os.terminal_size, lines: int, columns: int) -> int:
     """Calculates how many pixels of the video each character in the terminal represents.
 
     Parameters
@@ -19,13 +19,15 @@ def scale(terminal: os.terminal_size, lines: int, columns: int) -> List[int]:
         Returns how many pixels in width and height in the video are 
         being represented as one pixel in the terminal.
     """
-    if lines < terminal.lines and columns < terminal.columns:
-        return 1, 1
+    if lines / 2 < terminal.lines and columns < terminal.columns:
+        return 1
 
     for divisor in range(2, terminal.columns // 2 + 1):
         if (lines / divisor).is_integer() and (columns / divisor).is_integer():
             if (lines /
-                divisor) < terminal.lines and (columns /
+                divisor) / 2 < terminal.lines and (columns /
                                                divisor) < terminal.columns:
+                print(int(lines / (lines / divisor)), int(columns / (columns / divisor)))
                 # TODO: only work sometimes
-                return int(lines / (lines / divisor)), int(columns / (columns / divisor))
+                return int(lines / (lines / divisor))
+    

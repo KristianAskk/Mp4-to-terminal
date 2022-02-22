@@ -1,29 +1,26 @@
+import os
 from typing import List
 import numpy as np
 import time
 
-def create_frame(
-        frame: np.ndarray,
-        pixel_width: int,
-        pixel_height: int) -> List[str]:
+def create_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal_size) -> List[str]:
  
     ascii_frame = []
-    frames_fetched = _fetch_frames(frame, pixel_width, pixel_height)
+    frames_fetched = _fetch_frames(frame, height_and_width)
     for row in frames_fetched:
         frame_line = "".join([_fetch_character(_average_brightness(pixel)) for pixel in row])
-        ascii_frame.append(frame_line) 
-    return "\n".join(ascii_frame[::2])
+        ascii_frame.append(frame_line.center(terminal.columns)) 
+    
+    return "\n" * ((terminal.lines - len(ascii_frame) - 1) // 2) + "\n".join(ascii_frame) + "\n" * ((terminal.lines - len(ascii_frame) - 1) // 2)
    
-def _fetch_frames(frame: np.ndarray, pixel_width: int, 
-                  pixel_height: int) -> List[List[np.ndarray]]:
+def _fetch_frames(frame: np.ndarray, height_and_width: int) -> List[List[np.ndarray]]:
     frames = []
-    for pixel_row in range(0, len(frame), pixel_height):
+    for pixel_row in range(0, len(frame), height_and_width * 2):
         line = []
-        for pixel_column in range(0, len(frame[0]), pixel_width):
+        for pixel_column in range(0, len(frame[0]), height_and_width):
             line.append([[frame[i][j] for j in 
-                      range(pixel_column, pixel_column + pixel_width)]
-                      for i in range(pixel_row, pixel_row + pixel_height)])
-            
+                          range(pixel_column, pixel_column + height_and_width)]
+                          for i in range(pixel_row, pixel_row + height_and_width)])
         frames.append(line)
     return frames
 

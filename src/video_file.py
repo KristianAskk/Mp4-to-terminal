@@ -10,22 +10,6 @@ class VideoFile:
         self._file_dir = file_dir
         self._cap = cv2.VideoCapture(file_dir)
 
-    def get_frames(self, start, stop) -> List[np.ndarray]:
-        """Returns a list containing each of the frames.
-
-        Returns
-        -------
-        List[np.ndarray]
-            numpy array containing the rgb values of each individual pixel in the frame.
-        """
-        frames = []
-        # for fno in range(0, int(self._cap.get(cv2.CAP_PROP_FRAME_COUNT))):
-        for fno in range(start, stop):
-            self._cap.set(cv2.CAP_PROP_POS_FRAMES, fno)
-            _, frame = self._cap.read()
-            frames.append(frame)
-        return frames
-
     def get_resolution(self) -> Tuple[int, int]:
         """Returns a tuple containing the height and width of the video.
 
