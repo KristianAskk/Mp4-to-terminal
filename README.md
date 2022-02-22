@@ -12,3 +12,4 @@ A program that turns a mp4 video into a video displayed in the terminal.
 - [x] Center the video being displayed
 - [x] Add whitespaces to ensure that only one frame is being displayed at a time.
 - [ ] Add comments 
+- [ ] Add documentation
