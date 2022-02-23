@@ -27,7 +27,4 @@ def scale(terminal: os.terminal_size, lines: int, columns: int) -> int:
             if (lines /
                 divisor) / 2 < terminal.lines and (columns /
                                                divisor) < terminal.columns:
-                print(int(lines / (lines / divisor)), int(columns / (columns / divisor)))
-                # TODO: only work sometimes
                 return int(lines / (lines / divisor))
-    

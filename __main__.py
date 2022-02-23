@@ -8,14 +8,31 @@ from tqdm import tqdm
 
 
 def main():
-    video = VideoFile(f"{os.path.dirname(__file__)}/{sys.argv[1]}")
-    ascii_frames = []
+    
+    if len(sys.argv) < 2:
+        raise ValueError("Directory of video file not specified.")
+    
+    if not sys.argv[1].endswith(".mp4"):
+        raise ValueError("Name of given file must end with .mp4.")
+
+    if sys.argv[1] in os.listdir(f"{os.path.dirname(__file__)}"):
+        video = VideoFile(f"{os.path.dirname(__file__)}/{sys.argv[1]}")
+    else:
+        if sys.argv[1] in os.listdir(f"{os.path.dirname(__file__)}/.."):
+            video = VideoFile(f"{os.path.dirname(__file__)}/../{sys.argv[1]}")
+        else:
+            raise ValueError(f".mp4 file of name {sys.argv[1]} not found.")
+
     terminal = os.get_terminal_size()
-    height_and_width = scale(os.get_terminal_size(), *video.get_resolution())
+    if terminal.lines <= 8 or terminal.columns <= 8:
+        raise ValueError(f"Terminal of size {terminal.lines} lines and {terminal.columns} columns too small.")
+
+    height_and_width = scale(terminal, *video.get_resolution())
  
-    for i in (t := tqdm(range(0, video.frame_count(), 1))):
+    ascii_frames = []
+    for i in (loader := tqdm(range(0, video.frame_count(), 1))):
         frame = create_frame(video.get_frame(i), height_and_width, terminal)
-        t.set_description("Loading frames...")
+        loader.set_description("Loading frames...")
         ascii_frames.append(frame)
 
     if input("Input anything to start"):

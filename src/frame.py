@@ -2,16 +2,18 @@ import os
 from typing import List
 import numpy as np
 import time
+import cv2
 
 def create_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal_size) -> List[str]:
- 
     ascii_frame = []
     frames_fetched = _fetch_frames(frame, height_and_width)
     for row in frames_fetched:
         frame_line = "".join([_fetch_character(_average_brightness(pixel)) for pixel in row])
         ascii_frame.append(frame_line.center(terminal.columns)) 
     
-    return "\n" * ((terminal.lines - len(ascii_frame) - 1) // 2) + "\n".join(ascii_frame) + "\n" * ((terminal.lines - len(ascii_frame) - 1) // 2)
+    return "\n" * (((terminal.lines - len(ascii_frame) - 1) // 2) + 1) \
+    + "\n".join(ascii_frame) \
+    + "\n" * ((terminal.lines - len(ascii_frame) - 1) // 2)
    
 def _fetch_frames(frame: np.ndarray, height_and_width: int) -> List[List[np.ndarray]]:
     frames = []
@@ -46,7 +48,3 @@ def _fetch_character(brightness: float) -> str:
             return "."
         case _:
             return " "
-        
-           
-            
-            
