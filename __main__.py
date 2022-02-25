@@ -4,15 +4,11 @@ from typing import List
 from src.video_file import VideoFile
 from src.frame import create_frame
 from src.scale import scale
+from src.process import process
 import time
 from tqdm import tqdm
 import concurrent.futures
 import numpy as np
-
-
-def process(frame: np.ndarray, height_and_width) -> List[str]:
-    terminal = os.get_terminal_size()
-    return create_frame(frame, height_and_width, terminal)
 
 
 def main():
@@ -45,14 +41,12 @@ def main():
             t := tqdm(range(int(sys.argv[2]), video.frame_count(), int(sys.argv[2])))
         ):
             results = [
-                exec.submit(process, video.get_frame(i - j), height_and_width)
+                exec.submit(process, video.get_frame(i - j), height_and_width, terminal)
                 for j in range(int(sys.argv[2]) - 1, -1, -1)
             ]
             t.set_description("Loading frames...")
             for i in range(int(sys.argv[2])):
                 ascii_frames.append(results[i].result())
-            # for f in concurrent.futures.as_completed(results):
-            #     ascii_frames.append(f.result())
 
     if input("Input anything to start"):
         for frame in ascii_frames:
