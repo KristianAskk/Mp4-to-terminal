@@ -1,3 +1,11 @@
+from src.install_package import install_package
+import sys,os
+with open("requirements.txt","r") as f:
+    install_package( ([i.replace("\n","")[:i.find(">=")] for i in f.readlines()]) )
+import sys
+sys.path.append("libraries")
+
+
 import argparse
 import os
 import sys
@@ -10,7 +18,7 @@ from tqdm import tqdm
 import concurrent.futures
 import numpy as np
 
-MULTIPROCESS_LIMIT = 9
+MULTIPROCESS_LIMIT = 13
 
 
 def main():
@@ -29,7 +37,7 @@ def main():
         help="Number of processes that will be converting the video.",
     )
     args = parser.parse_args()
-
+    print(args.file)
     try:
         if not args.processes.isnumeric():
             raise ValueError(
@@ -70,9 +78,11 @@ def main():
 
     if input("Input anything to start"):
         for frame in ascii_frames:
-            os.system("clear")
+            os.system("cls")
+            previous_frame = time.time()
             print(frame)
-            time.sleep(1 / 24)
+            new_frame = time.time()
+            time.sleep((1 / 30)- (new_frame-previous_frame))
 
 
 if __name__ == "__main__":

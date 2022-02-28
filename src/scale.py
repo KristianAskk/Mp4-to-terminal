@@ -19,12 +19,12 @@ def scale(terminal: os.terminal_size, lines: int, columns: int) -> int:
         Returns how many pixels in width and height in the video are
         being represented as one pixel in the terminal.
     """
-    if lines / 2 < terminal.lines and columns < terminal.columns:
+    if lines / 2 < terminal.lines*2 and columns < terminal.columns*4:
         return 1
 
-    for divisor in range(2, terminal.columns // 2 + 1):
+    for divisor in range(2, terminal.columns*4 // 2 + 1):
         if (lines / divisor).is_integer() and (columns / divisor).is_integer():
-            if (lines / divisor) / 2 < terminal.lines and (
+            if (lines / divisor) / 2 < terminal.lines*2 and (
                 columns / divisor
-            ) < terminal.columns:
+            ) < terminal.columns*4:
                 return int(lines / (lines / divisor))
