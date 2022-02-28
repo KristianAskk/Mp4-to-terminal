@@ -42,7 +42,7 @@ def main():
         raise ValueError(f"Cannot exceed {MULTIPROCESS_LIMIT} processes")
 
     if args.file:
-        if not args.file in os.listdir(f"{os.path.dirname(__file__)}/../"):
+        if not args.file in os.listdir("."):
             raise ValueError("file not found")
 
     else:
