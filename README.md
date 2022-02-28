@@ -14,3 +14,5 @@ A program that turns a mp4 video into a video displayed in the terminal.
 - [ ] Add comments 
 - [ ] Write installation process and proper description
 - [ ] Add multiprocessing limit
+
+add argsparser ( see that lq thing )

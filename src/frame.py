@@ -33,19 +33,17 @@ def _average_brightness(pixel: List[np.ndarray]) -> float:
     return average
 
 def _fetch_character(brightness: float) -> str:
-    match brightness:
-        case brightness if brightness >= 0.85:
-            return "#"
-        case brightness if brightness >= 0.7:
-            return "%"
-        case brightness if brightness >= 0.6:
-            return "*"
-        case brightness if brightness >= 0.4:
-            return "-"
-        case brightness if brightness >= 0.2:
-            return ":"
-        case brightness if brightness >= 0.1:
-            return "."
-        case _:
-            return " "
+    if brightness >= 0.85:
+        return "#"
+    if brightness >= 0.7:
+        return "%"
+    if brightness >= 0.6:
+        return "*"
+    if brightness >= 0.4:
+        return "-"
+    if brightness >= 0.2:
+        return ":"
+    if brightness >= 0.1:
+        return "."
+    return " "
 
