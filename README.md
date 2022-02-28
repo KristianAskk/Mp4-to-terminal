@@ -10,7 +10,7 @@ A small conversion program that converts an .mp4 file to text and displays it in
 
 E.g:
 ```
-python3 Mp4-to-terminal video.mp4 2
+python3 Mp4-to-terminal -f video.mp4 -p 2
 ```
 
 
