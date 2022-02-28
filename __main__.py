@@ -48,7 +48,7 @@ def main():
     else:
         raise ValueError("Name of file not given")
 
-    video = VideoFile(f"{os.path.dirname(__file__)}/../{args.file}")
+    video = VideoFile(args.file)
     ascii_frames = []
     height_and_width = scale(os.get_terminal_size(), *video.get_resolution())
 
