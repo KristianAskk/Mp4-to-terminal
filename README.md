@@ -1,8 +1,20 @@
 # Mp4 to Terminal
 
-A program that turns a mp4 video into a video displayed in the terminal.
+A small conversion program that converts an .mp4 file to text and displays it in the terminal.
 
-# TODO: 
+## Quick start
+
+- Clone the github repository
+- Move your .mp4 file to the same directory as the repo
+- Run the program while specifying the name of the video file and the number of processes that will be converting the video. 
+
+E.g:
+```
+python3 Mp4-to-terminal video.mp4 2
+```
+
+
+## TODO: 
 - [ ] Rewrite or edit the __scale__ method ( it's a mess )
 - [x] Improve video processing time 
 - [x] Make the project runnable as a whole instead of running it with __main__.py ( in other words, fix importing )
