@@ -63,12 +63,12 @@ def main():
     with concurrent.futures.ProcessPoolExecutor() as exec:
         for i in (
             t := tqdm(
-                range(int(args.processes), video.frame_count()//1, int(args.processes))
+                range(int(args.processes), video.frame_count()//2, int(args.processes))
             )
         ):
             results = [
                 exec.submit(
-                    create_frame, video.get_frame(i - j), height_and_width, terminal
+                    create_frame, video.get_frame(i - j)*2, height_and_width, terminal
                 )
                 for j in range(int(args.processes) - 1, -1, -1)
             ]
@@ -82,7 +82,7 @@ def main():
 
         print(frame)
         new_frame = time.time()
-        time.sleep(max(0,(1 / 30)- (new_frame-previous_frame)))
+        time.sleep(max(0,(1 / 15)- (new_frame-previous_frame)))
     os.system("pause")
 
 if __name__ == "__main__":
