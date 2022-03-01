@@ -36,12 +36,12 @@ def create_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal
 
 def _fetch_frames(frame: np.ndarray, height_and_width: int) -> List[List[np.ndarray]]:
     frames = []
-    for pixel_row in range(0, len(frame), height_and_width * 2):
+    for pixel_row in range(0, (len(frame)//height_and_width)*height_and_width, height_and_width ):
         line = []
-        for pixel_column in range(0, len(frame[0]), height_and_width):
+        for pixel_column in range(0, (len(frame[0])//height_and_width)*height_and_width, height_and_width):
             line.append([[frame[i][j] for j in
-                          range(pixel_column, pixel_column + height_and_width, 2)]
-                          for i in range(pixel_row, pixel_row + height_and_width, 2)])
+                          range(pixel_column, pixel_column + height_and_width,1)]
+                          for i in range(pixel_row, pixel_row + height_and_width,1)])
         frames.append(line)
     return frames
 

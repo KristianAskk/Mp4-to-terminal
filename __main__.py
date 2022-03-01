@@ -63,7 +63,7 @@ def main():
     with concurrent.futures.ProcessPoolExecutor() as exec:
         for i in (
             t := tqdm(
-                range(int(args.processes), video.frame_count(), int(args.processes))
+                range(int(args.processes), video.frame_count()//1, int(args.processes))
             )
         ):
             results = [
@@ -75,15 +75,15 @@ def main():
             t.set_description("Loading frames...")
             for i in range(int(args.processes)):
                 ascii_frames.append(results[i].result())
+    os.system("cls")
+    pause = input("Input anything to start")
+    for frame in ascii_frames:
+        previous_frame = time.time()
 
-    if input("Input anything to start"):
-        for frame in ascii_frames:
-            os.system("cls")
-            previous_frame = time.time()
-            print(frame)
-            new_frame = time.time()
-            time.sleep((1 / 30)- (new_frame-previous_frame))
-
+        print(frame)
+        new_frame = time.time()
+        time.sleep(max(0,(1 / 30)- (new_frame-previous_frame)))
+    os.system("pause")
 
 if __name__ == "__main__":
     main()
