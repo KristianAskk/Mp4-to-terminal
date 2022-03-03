@@ -5,12 +5,13 @@ A small conversion program that converts an .mp4 file to text and displays it in
 ## Quick start
 
 - Clone the github repository
-- Move your .mp4 file to the same directory as the repo
+- Move your .mp4 file into the repository folder
+- Install dependencies listed in __requirements.txt__
 - Run the program while specifying the name of the video file and the number of processes that will be converting the video. 
 
 E.g:
 ```
-python3 Mp4-to-terminal -f video.mp4 -p 2
+python3 __main__.py -f video.mp4 -p 2 -b False
 ```
 
 

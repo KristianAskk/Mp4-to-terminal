@@ -1,5 +1,6 @@
 import os
 from typing import List, Any
+import math
 
 
 def scale(terminal: os.terminal_size, lines: int, columns: int) -> int:
@@ -19,12 +20,11 @@ def scale(terminal: os.terminal_size, lines: int, columns: int) -> int:
         Returns how many pixels in width and height in the video are
         being represented as one pixel in the terminal.
     """
-    if lines / 2 < terminal.lines and columns < terminal.columns:
-        return 1
-
     for divisor in range(2, terminal.columns // 2 + 1):
-        if (lines / divisor).is_integer() and (columns / divisor).is_integer():
-            if (lines / divisor) / 2 < terminal.lines and (
-                columns / divisor
-            ) < terminal.columns:
-                return int(lines / (lines / divisor))
+            if (lines / divisor).is_integer() and (columns / divisor).is_integer():
+                if (lines / divisor) / 2 < terminal.lines and (columns / divisor) < terminal.columns:
+                    print('this is getting returned', int(lines / (lines / divisor)))
+                    return int(lines / (lines / divisor))
+
+def braille_scale(terminal: os.terminal_size, lines: int, columns: int) -> int:
+    return math.ceil(max(1,max( lines/(terminal.lines*4),columns/(terminal.columns*2) )))
