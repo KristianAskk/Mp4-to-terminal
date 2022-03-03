@@ -25,6 +25,5 @@ python3 Mp4-to-terminal -f video.mp4 -p 2
 - [x] Add whitespaces to ensure that only one frame is being displayed at a time.
 - [ ] Add comments 
 - [ ] Write installation process and proper description
-- [ ] Add multiprocessing limit
+- [x] Add multiprocessing limit
 
-add argsparser ( see that lq thing )

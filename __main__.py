@@ -22,11 +22,12 @@ def main():
         )
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", help="Name of .mp4 file")
+    parser.add_argument("-f", "--file", help="Name of .mp4 file", required=True)
     parser.add_argument(
         "-p",
         "--processes",
         help="Number of processes that will be converting the video.",
+        required=True
     )
     args = parser.parse_args()
 
@@ -42,16 +43,15 @@ def main():
         raise ValueError(f"Cannot exceed {MULTIPROCESS_LIMIT} processes")
 
     if args.file:
-        if not args.file in os.listdir(f"{os.path.dirname(__file__)}/../"):
+        if not args.file in os.listdir("."):
             raise ValueError("file not found")
 
     else:
         raise ValueError("Name of file not given")
 
-    video = VideoFile(f"{os.path.dirname(__file__)}/../{args.file}")
+    video = VideoFile(args.file)
     ascii_frames = []
     height_and_width = scale(os.get_terminal_size(), *video.get_resolution())
-
     with concurrent.futures.ProcessPoolExecutor() as exec:
         for i in (
             t := tqdm(
@@ -70,9 +70,10 @@ def main():
 
     if input("Input anything to start"):
         for frame in ascii_frames:
-            os.system("clear")
+            prev_time = time.time()
             print(frame)
-            time.sleep(1 / 24)
+            new_time = time.time()
+            time.sleep(max(0,(1 / 30)-(new_time -prev_time)))
 
 
 if __name__ == "__main__":
