@@ -20,11 +20,8 @@ def scale(terminal: os.terminal_size, lines: int, columns: int) -> int:
         Returns how many pixels in width and height in the video are
         being represented as one pixel in the terminal.
     """
-    for divisor in range(2, terminal.columns // 2 + 1):
-            if (lines / divisor).is_integer() and (columns / divisor).is_integer():
-                if (lines / divisor) / 2 < terminal.lines and (columns / divisor) < terminal.columns:
-                    print('this is getting returned', int(lines / (lines / divisor)))
-                    return int(lines / (lines / divisor))
+    return math.ceil(max(1,max( lines/(terminal.lines)/2,columns/(terminal.columns) )))
+
 
 def braille_scale(terminal: os.terminal_size, lines: int, columns: int) -> int:
     return math.ceil(max(1,max( lines/(terminal.lines*4),columns/(terminal.columns*2) )))

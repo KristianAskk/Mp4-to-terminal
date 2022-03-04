@@ -62,11 +62,14 @@ def main():
             t.set_description("Loading frames...")
             for i in range(int(args.processes)):
                 ascii_frames.append(results[i].result())
+    os.system("clear")
+    input("Input anything to start")
+    for frame in ascii_frames:
+        print(frame)
+        time.sleep(1 / 24)
+    input("End")
+    
 
-    if input("Input anything to start"):
-        for frame in ascii_frames:
-            print(frame)
-            time.sleep(1 / 24)
 
 
 if __name__ == "__main__":
