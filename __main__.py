@@ -37,10 +37,11 @@ def main():
     if int(args.processes) >= MULTIPROCESS_LIMIT:
         raise ValueError(f"Cannot exceed {MULTIPROCESS_LIMIT} processes")
 
-    if not args.file in os.listdir("."):
+    if not args.file in os.listdir(f"{os.path.dirname(__file__)}/.."):
+        os.listdir(f"{os.path.dirname(__file__)}/..")
         raise ValueError("file not found")
 
-    video = VideoFile(args.file)
+    video = VideoFile(f'{os.path.dirname(__file__)}/../{args.file}')
 
     if eval(args.braille):
         scaler = braille_scale
@@ -67,7 +68,7 @@ def main():
     for frame in ascii_frames:
         print(frame)
         time.sleep(1 / 24)
-    input("End")
+    print("End")
     
 
 

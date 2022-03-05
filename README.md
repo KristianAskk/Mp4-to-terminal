@@ -1,22 +1,22 @@
 # Mp4 to Terminal
 
-A small conversion program that converts an .mp4 file to text and displays it in the terminal.
+A small conversion program that converts a .mp4 file to text and displays it in the terminal. Videoes can be displayed with both braille and characters respectively. 
 
 ## Quick start
 
 - Clone the github repository
-- Move your .mp4 file into the repository folder
+- Move your .mp4 file in the same directory as the cloned repo
 - Install dependencies listed in __requirements.txt__
 - Run the program while specifying the name of the video file and the number of processes that will be converting the video. 
 
 E.g:
 ```
-python3 __main__.py -f video.mp4 -p 2 -b False
+python3 Mp4-to-terminal -f video.mp4 -p 2
 ```
 
 
 ## TODO: 
-- [ ] Rewrite or edit the __scale__ method ( it's a mess )
+- [x] Rewrite or edit the __scale__ method ( it's a mess )
 - [x] Improve video processing time 
 - [x] Make the project runnable as a whole instead of running it with __main__.py ( in other words, fix importing )
 - [x] The function __scale__ is currently returning None if the terminal is too small.
@@ -28,3 +28,6 @@ python3 __main__.py -f video.mp4 -p 2 -b False
 - [ ] Write installation process and proper description
 - [x] Add multiprocessing limit
 
+## Credits
+
+- @Feeenix for making option for video being displayed in braille possible

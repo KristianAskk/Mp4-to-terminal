@@ -58,17 +58,28 @@ def _braille_average_brightness(pixel):
     return average
 
 def _fetch_character(brightness: float) -> str:
-    if brightness < 0.03:          return " "
-    if brightness < 0.07692307692: return "."
-    if brightness < 0.15384615384: return ","
-    if brightness < 0.23076923076: return ":"
-    if brightness < 0.30769230769: return ";"
-    if brightness < 0.38461538461: return "*"
-    if brightness < 0.46153846153: return "¤"
-    if brightness < 0.53846153846: return "#"
-    if brightness < 0.61538461538: return "9"
-    if brightness < 0.69230769230: return "%"
-    if brightness < 0.76923076923: return "&"
-    if brightness < 0.84615384615: return "Ñ"
-    if brightness < 0.92307692307: return "@"
-    return "█"
+    if brightness < 0.03:
+        return " "
+    if brightness < 0.07692307692:
+         return "."
+    if brightness < 0.15384615384:
+        return ","
+    if brightness < 0.23076923076:
+        return ":"
+    if brightness < 0.30769230769:
+        return ";"
+    if brightness < 0.38461538461:
+        return "*"
+    if brightness < 0.46153846153:
+        return "¤"
+    if brightness < 0.53846153846:
+        return "#"
+    if brightness < 0.61538461538:
+        return "9"
+    if brightness < 0.69230769230:
+        return "%"
+    if brightness < 0.76923076923:
+        return "&"
+    if brightness < 0.84615384615:
+        return "Ñ"
+    return '@'
