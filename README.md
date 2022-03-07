@@ -2,6 +2,8 @@
 
 A small conversion program that converts a .mp4 file to text and displays it in the terminal. Videoes can be displayed with both braille and characters respectively. 
 
+![example](https://user-images.githubusercontent.com/77408372/157014508-cb7e3923-2350-401a-a63f-13e9d9420fb9.gif)
+
 ## Quick start
 
 - Clone the github repository
