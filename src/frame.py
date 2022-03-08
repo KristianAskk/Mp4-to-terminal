@@ -65,10 +65,8 @@ def _braille_average_brightness(pixel):
 
 def _average_rgb_brightness(pixel) -> Tuple[float]:
     amount_of_rgb_values = len(pixel) * len(pixel[0]) * 255
-    red = np.sum(value[0] for row in pixel for value in row)
-    green = np.sum(value[1] for row in pixel for value in row)
-    blue = np.sum(value[2] for row in pixel for value in row)
-    return red / amount_of_rgb_values, green / amount_of_rgb_values, blue / amount_of_rgb_values
+    values = np.array(np.sum([value[i]]) for i in range(3) for row in pixel for value in row)
+    return list(map(lambda x: x / amount_of_rgb_values, values))
     
 def _fetch_colored_character(brightness: List[float]) -> str:
     return f"\033\033[38;2;{int(brightness[0] * 255)};{int(brightness[1] * 255)};{int(brightness[2] * 255)}m"  \
