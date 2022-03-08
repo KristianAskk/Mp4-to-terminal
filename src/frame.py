@@ -7,12 +7,12 @@ import math
 
 def create_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal_size) -> List[str]:
     ascii_frame = []
-    for pixel_row in range(0, len(frame), height_and_width * 2):
+    for pixel_row in range(0, len(frame)-(len(frame)%height_and_width), height_and_width*2 ):
         line = []
-        for pixel_column in range(0, len(frame[0]), height_and_width):
-            # characters = _fetch_character(_average_brightness([[frame[i][j]
-            character = _fetch_colored_character(_average_rgb_brightness([[frame[i][j] 
-                                                 for j in range(pixel_column, pixel_column + height_and_width - 2, 2)]
+        for pixel_column in range(0, len(frame[0])-(len(frame[0])%height_and_width), height_and_width):
+            character = _fetch_character(_average_brightness([[frame[i][j]
+            # character = _fetch_colored_character(_average_rgb_brightness([[frame[i][j] 
+                                                 for j in range(pixel_column, pixel_column + height_and_width, 2)]
                                                  for i in range(pixel_row, pixel_row + height_and_width - 2, 2)]))
             line.append(character) 
 
@@ -71,10 +71,8 @@ def _average_rgb_brightness(pixel) -> Tuple[float]:
     return red / amount_of_rgb_values, green / amount_of_rgb_values, blue / amount_of_rgb_values
     
 def _fetch_colored_character(brightness: List[float]) -> str:
-    return f"\033\033[38;2;{int(brightness[0] * 255)};{int(brightness[1] * 255)};{int(brightness[2] * 200)}m"  \
+    return f"\033\033[38;2;{int(brightness[0] * 255)};{int(brightness[1] * 255)};{int(brightness[2] * 255)}m"  \
     + "█" \
-    + "\033[0m"
-    
 
 def _fetch_character(brightness: float) -> str:
     if brightness < 0.03:
