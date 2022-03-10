@@ -11,13 +11,28 @@ def create_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal
         line = []
         for pixel_column in range(0, len(frame[0])-(len(frame[0])%height_and_width), height_and_width):
             character = _fetch_character(_average_brightness([[frame[i][j]
-            # character = _fetch_colored_character(_average_rgb_brightness([[frame[i][j] 
                                                  for j in range(pixel_column, pixel_column + height_and_width, 2)]
                                                  for i in range(pixel_row, pixel_row + height_and_width - 2, 2)]))
-            line.append(character) 
+            line.append(character)
 
-        ascii_frame.append("".join(line).center(terminal.columns)) 
+        ascii_frame.append("".join(line).center(terminal.columns))
     
+    return "\n" * (((terminal.lines - len(ascii_frame) - 1) // 2) + 1) \
+    + "\n".join(ascii_frame) \
+    + "\n" * ((terminal.lines - len(ascii_frame) - 1) // 2)
+
+def create_colored_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal_size) -> List[str]:
+    ascii_frame = []
+    for pixel_row in range(0, len(frame), height_and_width * 2):
+        line = []
+        for pixel_column in range(0, len(frame[0]), height_and_width):
+            character = _fetch_colored_character(_average_rgb_brightness([[frame[i][j]
+                                                for j in range(pixel_column, pixel_column + height_and_width - 2, 2)]
+                                                for i in range(pixel_row, pixel_row + height_and_width - 2, 2)]))
+            line.append(character)
+
+        ascii_frame.append("".join(line).center(terminal.columns))
+
     return "\n".join(ascii_frame)
 
 def create_braille_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal_size) -> List[str]:
@@ -63,9 +78,9 @@ def _braille_average_brightness(pixel):
     average = sum_of_rgb_values / (amount_of_rgb_values)
     return average
 
-def _average_rgb_brightness(pixel) -> Tuple[float]:
+def _average_rgb_brightness(pixel) -> List[float]:
     amount_of_rgb_values = len(pixel) * len(pixel[0]) * 255
-    values = np.array(np.sum([value[i]]) for i in range(3) for row in pixel for value in row)
+    values = [np.sum([value[i]]) for i in range(3) for row in pixel for value in row]
     return list(map(lambda x: x / amount_of_rgb_values, values))
     
 def _fetch_colored_character(brightness: List[float]) -> str:

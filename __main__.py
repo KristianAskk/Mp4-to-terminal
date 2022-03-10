@@ -3,7 +3,7 @@ import os
 import sys
 from typing import List
 from src.video_file import VideoFile
-from src.frame import create_frame, create_braille_frame
+from src.frame import create_frame, create_braille_frame, create_colored_frame
 from src.scale import scale, braille_scale
 import time
 from tqdm import tqdm
@@ -23,7 +23,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", help="Name of .mp4 file", required=True)
     parser.add_argument("-p", "--processes", help="specify the number of processes that will be converting the video.", default='1')
-    parser.add_argument("-b", "--braille", help='choose either to display video in braille or text', default='False', choices=('True', 'False'))
+    parser.add_argument("-t", "--type", help='Choose to either display the video in color or braille. Set to displaying video with characters by default.', default='chars', choices=('chars', 'braille', 'color'))
     args = parser.parse_args()
 
     try:
@@ -42,13 +42,15 @@ def main():
         raise ValueError("file not found")
 
     video = VideoFile(f'{os.path.dirname(__file__)}/../{args.file}')
-
-    if eval(args.braille):
-        scaler = braille_scale
-        frame_processor = create_braille_frame
-    else:
-        scaler = scale
-        frame_processor = create_frame
+    scaler = scale
+    frame_processor = create_frame
+    if args.type:
+        if args.type == 'braille':
+            scaler = braille_scale
+            frame_processor = create_braille_frame
+        elif args.type == 'color':
+            scaler = scale
+            frame_processor = create_colored_frame
 
     height_and_width = scaler(os.get_terminal_size(), *video.get_resolution())
     ascii_frames = []
