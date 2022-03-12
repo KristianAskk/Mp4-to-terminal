@@ -7,12 +7,18 @@ import math
 
 def create_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal_size) -> List[str]:
     ascii_frame = []
-    for pixel_row in range(0, len(frame)-(len(frame)%height_and_width), height_and_width*2 ):
+
+    for pixel_row in range(0, len(frame) - (len(frame) % height_and_width), height_and_width *2 ):
         line = []
-        for pixel_column in range(0, len(frame[0])-(len(frame[0])%height_and_width), height_and_width):
-            character = _fetch_character(_average_brightness([[frame[i][j]
-                                                 for j in range(pixel_column, pixel_column + height_and_width, 2)]
-                                                 for i in range(pixel_row, pixel_row + height_and_width - 2, 2)]))
+        for pixel_column in range(0, len(frame[0]) - (len(frame[0]) % height_and_width), height_and_width):
+            character = _fetch_character(
+                            _average_brightness(
+                                [
+                                [frame[i][j] for j in range(pixel_column, pixel_column + height_and_width, 2)]
+                                for i in range(pixel_row, pixel_row + height_and_width - 2, 2)
+                                ]
+                            )
+                        )
             line.append(character)
 
         ascii_frame.append("".join(line).center(terminal.columns))
@@ -23,6 +29,7 @@ def create_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal
 
 def create_colored_frame(frame: np.ndarray, height_and_width: int, terminal: os.terminal_size) -> List[str]:
     ascii_frame = []
+
     for pixel_row in range(0, len(frame), height_and_width * 2):
         line = []
         for pixel_column in range(0, len(frame[0]), height_and_width):

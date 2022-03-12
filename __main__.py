@@ -42,8 +42,10 @@ def main():
         raise ValueError("file not found")
 
     video = VideoFile(f'{os.path.dirname(__file__)}/../{args.file}')
+
     scaler = scale
     frame_processor = create_frame
+
     if args.type:
         if args.type == 'braille':
             scaler = braille_scale
